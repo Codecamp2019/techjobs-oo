@@ -22,16 +22,106 @@ public class JobForm {
     @NotNull
     private int employerId;
 
+    @NotNull
+    //@Size(min=1, message = "Employer may not be empty")
+    private int employer;
+
+    @NotNull
+    //@Size(min=1, message = "Location may not be empty")
+    private int location;
+
+    @NotNull
+    private int locationId;
+
+    @NotNull
+    private int coreCompetencyId;
+
+
+    @NotNull
+    //@Size(min=1, message = "Position Type may not be empty")
+    private int positionType;
+
+    @NotNull
+    // @Size(min=1, message = "Core Competency may not be empty")
+    private int coreCompetency;
     /*
         TODO #3 - Included other fields needed to create a job,
         with correct validation attributes and display names.
         Don't forget to add getters and setters
      */
 
+    public Employer getEmployer(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getEmployers().findById(this.employerId);
+    }
+
+
+    public void setEmployer(int employer) {
+        this.employer = employer;
+    }
+
+    public Location getLocation(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getLocations().findById(this.locationId);
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public int getCoreCompetency() {
+        return coreCompetency;
+    }
+
+    public void setPositionType(int positionType) {
+        this.positionType = positionType;
+    }
+
+    public CoreCompetency getCompetency(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getCoreCompetencies().findById(this.coreCompetencyId);
+    }
+     public void setCoreCompetency(int coreCompetency) {
+        this.coreCompetency = coreCompetency;
+    }
+
+    public int getCoreCompetencyId() {
+        return coreCompetencyId;
+    }
+    public void setCoreCompetencyId(int coreCompetenciesId) {
+        this.coreCompetencyId = coreCompetenciesId;
+    }
+
+
+    private int positionTypeId;
+
+    public PositionType getPositionType(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getPositionTypes().findById(this.positionTypeId);
+    }
+
+    public int getPositionTypeId() {
+        return positionTypeId;
+    }
+
+    public void setPositionTypeId(int positionTypesId) {
+        this.positionTypeId = positionTypesId;
+    }
+
+    @NotNull
+    private ArrayList<PositionType> positionTypes;
     private ArrayList<Employer> employers;
     private ArrayList<Location> locations;
     private ArrayList<CoreCompetency> coreCompetencies;
-    private ArrayList<PositionType> positionTypes;
+
 
     public JobForm() {
 
@@ -40,6 +130,11 @@ public class JobForm {
         /*
             TODO #4 - populate the other ArrayList collections needed in the view
         */
+        coreCompetencies = jobData.getCoreCompetencies().findAll();
+
+        positionTypes = jobData.getPositionTypes().findAll();
+
+        locations = jobData.getLocations().findAll();
 
         employers = jobData.getEmployers().findAll();
 
